@@ -24,5 +24,7 @@
       %ul.nav.nav-tabs
         %li= link_to 'Home', root_path
         %li= link_to 'About', welcome_about_path  
-    
+      %div.container   
+        %br 
+        = render 'layouts/messages'
       = yield
