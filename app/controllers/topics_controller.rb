@@ -27,7 +27,16 @@ class TopicsController < ApplicationController
   def edit
   end
 
-  def destroy 
+  def destroy
+    @topic = Topic.find(params[:id])
+
+    if @topic.destroy 
+      flash[:notice] = 'Topic deleted successfully.'
+      redirect_to topics_path
+    else 
+      flash.now[:alert] = 'There was an error deleted this topic.'
+      render :show 
+    end  
   end 
 
   private 
