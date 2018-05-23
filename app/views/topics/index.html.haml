@@ -1,0 +1,10 @@
+%h1 Blocmark Topics 
+.container
+ .row
+  - @topics.each do |topic|
+   .col-sm-3
+    = render partial: 'topic', locals: { topic: topic }
+%br
+.row
+ .col-md-4
+  \#{link_to "New Topic", new_topic_path, class: 'btn btn-success'}
