@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
 
   resources :topics do 
-    resources :bookmarks, only: [:new, :show, :destory]
+    resources :bookmarks
   end 
 
   get 'about' => 'welcome#about'

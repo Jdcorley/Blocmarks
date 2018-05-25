@@ -6,19 +6,18 @@ class BookmarksController < ApplicationController
 
   def new
     @topic = Topic.find(params[:topic_id])
-    @bookmark = Bookmark.new  
+    @bookmark = Bookmark.new 
   end
   
   def create
     @topic = Topic.find(params[:topic_id])
     @bookmark = @topic.bookmarks.build(bookmark_params)
-    @bookmark.user = current_user 
 
     if @bookmark.save 
       flash[:notice] = 'Bookmark was saved.'
       redirect_to topics_path 
     else 
-      flash.now[:alert] = 'There was an error saving the bookmark. Please try again.'
+      flash.now[:alert] = 'There was an error saving the bookmark. The url may be invalid. Please copy and paste the full url you are trying to add.'
       render :new 
     end 
   end 
