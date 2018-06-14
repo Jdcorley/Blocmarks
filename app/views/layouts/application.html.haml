@@ -21,7 +21,7 @@
         \#{link_to "Sign In", new_user_session_path, :class => 'navbar-link'}
     
     %div.container
-      %ul.nav.nav-tabs
+      %ul.nav.nav-tabs.navbar-default
         %li= link_to 'Home', root_path
         %li= link_to 'About', about_path
         %li= link_to 'Blocmarks', topics_path 
@@ -29,3 +29,4 @@
         %br 
         = render 'layouts/messages'
       = yield
+      

@@ -1,0 +1,8 @@
+.row
+ %h1 Edit Bookmark 
+.row 
+ .p Enter changes to your bookmark below.  
+%br 
+ .row 
+  .container 
+   = render partial: 'form', locals: {bookmark: @bookmark}

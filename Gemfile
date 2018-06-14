@@ -26,6 +26,7 @@ gem 'rails', '~> 5.2.0'
  gem 'bootstrap-sass'
  gem 'figaro'
  gem 'bootsnap', require: false
+ gem 'data-confirm-modal'
 
  group :development, :test do
    gem 'byebug'

@@ -1,2 +1,6 @@
-%h1 Topics#edit
-%p Find me in app/views/topics/edit.html.haml
+.container 
+  %h1 Edit Topic
+  .p Enter changes to your topic below.  
+%br 
+  .container 
+    = render partial: 'form', locals: {topic: @topic}

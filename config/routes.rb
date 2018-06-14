@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get 'sign_in', to: 'devise/sessions#new'
   end
 
-  resources :topics do 
+  resources :topics, shallow: true  do 
     resources :bookmarks
   end 
 
