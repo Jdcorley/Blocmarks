@@ -11,20 +11,22 @@ class IncomingController < ApplicationController
     bookmark_from_email = params['stripped-text']
     puts user_from_email, topic_from_email, bookmark_from_email 
 
-    if user_nil(user_from_email)
-      User.create!(email: user_from_email)
-      user_from_email = User.last
-      puts user_from_email
-    end
-
     if topic_nil(topic_from_email)
       Topic.create!(title: topic_from_email)
       topic_from_email = Topic.last
       puts topic_from_email
     end 
 
-    puts user_from_email, topic_from_email, bookmark_from_email
+    if user_nil(user_from_email)
+      User.create!(email: user_from_email)
+      user_from_email = User.last
+      puts user_from_email
+    end
 
+    
+    puts user_from_email, topic_from_email, bookmark_from_email
+    current_user = user_from_email
+    puts current_user 
     create_a_bookmark(user_from_email, topic_from_email, bookmark_from_email)
     
     head 200
