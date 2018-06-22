@@ -7,33 +7,33 @@ class IncomingController < ApplicationController
      # to get a sense of what you're dealing with.
     puts "INCOMING PARAMS HERE: #{params}"
 
-    :email_user    == params[:sender]
-    :email_topic   == params[:subject]
-    :email_bookmark == params['body-plain']
+    user_from_email    = params[:sender]
+    topic_from_email   = params[:subject]
+    bookmark_from_email = params['body-plain']
     # body_without_quotes = request.POST.get('stripped-text', '')
     # recipient = request.POST.get('recipient')
-    if user_nil
-      email_user = User.create(email: :email_user)
+    if user_nil(user_from_email)
+      user_from_email = User.create(email: user_from_email)
     end
 
-    if topic_nil
-      email_topic = Topic.create(title: :email_topic)
+    if topic_nil(topic_from_email)
+      topic_from_email = Topic.create(title: topic_from_email)
     end 
 
-    create_a_bookmark(:email_user, :email_topic, :email_bookmark)
+    create_a_bookmark(user_from_email, topic_from_email, bookmark_from_email)
     
     head 200
   end
 
-  def user_nil
-    User.find_by(email: :email_user).nil?
+  def user_nil(user_from_email)
+    User.find_by(email: user_from_email).nil?
   end 
 
-  def topic_nil
-    Topic.find_by(title: :email_topic).nil?
+  def topic_nil(topic_from_email)
+    Topic.find_by(title: topic_from_email).nil?
   end 
 
-  def create_a_bookmark(email_user, email_topic, email_bookmark)
-    User.find_by(email: :email_user).topics.find_by(title: :email_topic).bookmarks.create(url: :email_bookmark)
+  def create_a_bookmark(user_from_email, topic_from_email, bookmark_from_email)
+    User.find_by(email: user_from_email).topics.find_by(title: topic_from_email).bookmarks.create(url: bookmark_from_email)
   end 
 end
