@@ -7,17 +7,17 @@ class IncomingController < ApplicationController
      # to get a sense of what you're dealing with.
     puts "INCOMING PARAMS HERE: #{params}"
 
-    email_user    = request.POST.get('sender')
-    email_topic   = request.POST.get('subject', '')
-    email_bookmark = request.POST.get('body-plain', '')
+    email_user    = params[:sender]
+    email_topic   = params[:subject]
+    email_bookmark = params[:body-plain]
     # body_without_quotes = request.POST.get('stripped-text', '')
     # recipient = request.POST.get('recipient')
     if user_nil
-      email_user = User.create(email: sender)
+      email_user = User.create(email: email_user)
     end
 
     if topic_nil
-      email_topic = Topic.create(title: subject)
+      email_topic = Topic.create(title: email_topic)
     end 
 
     create_a_bookmark(email_user, email_topic, email_bookmark)
