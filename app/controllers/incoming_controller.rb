@@ -5,28 +5,38 @@ class IncomingController < ApplicationController
   def create
      # Take a look at these in your server logs
      # to get a sense of what you're dealing with.
-     puts "INCOMING PARAMS HERE: #{params}"
+    puts "INCOMING PARAMS HERE: #{params}"
+    email_user    = request.POST.get('sender')
+    email_topic   = request.POST.get('subject', '')
+    email_bookmark = request.POST.get('body-plain', '')
+    # body_without_quotes = request.POST.get('stripped-text', '')
+    # recipient = request.POST.get('recipient')
+    if user_nil
+      email_user = User.create(email: sender)
+    else
+      break
+    end
 
-     sender    = request.POST.get('sender')
-     recipient = request.POST.get('recipient')
-     subject   = request.POST.get('subject', '')
+    if topic_nil
+      email_topic = Topic.create(title: subject)
+    else 
+      break 
+    end 
 
-     body_plain = request.POST.get('body-plain', '')
-     body_without_quotes = request.POST.get('stripped-text', '')
-
-    # You put the message-splitting and business
-    # magic here.
-     # Find the user by using params[:sender]
-     # Find the topic by using params[:subject]
-     # Assign the url to a variable after retreiving it from params["body-plain"]
-
-     # Check if user is nil, if so, create and save a new user
-
-     # Check if the topic is nil, if so, create and save a new topic
-
-     # Now that you're sure you have a valid user and topic, build and save a new bookmark
-
-    # Assuming all went well.
+    create_a_bookmark(email_user, email_topic, email_bookmark)
+    
     head 200
   end
+
+  def user_nil
+    User.find_by(email: sender).nil?
+  end 
+
+  def topic_nil
+    Topic.find_by(title: subject).nil?
+  end 
+
+  def create_a_bookmark(email_user, email_topic, email_bookmark)
+    User.find_by(email: email_user).topics.find_by(title: email_topic).bookmarks.create(url: email_bookmark)
+  end 
 end
