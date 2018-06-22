@@ -26,11 +26,11 @@ class IncomingController < ApplicationController
   end
 
   def user_nil
-    User.find_by(email: sender).nil?
+    User.find_by(email: email_user).nil?
   end 
 
   def topic_nil
-    Topic.find_by(title: subject).nil?
+    Topic.find_by(title: email_topic).nil?
   end 
 
   def create_a_bookmark(email_user, email_topic, email_bookmark)
