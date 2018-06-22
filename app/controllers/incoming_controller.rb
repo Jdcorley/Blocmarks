@@ -13,11 +13,11 @@ class IncomingController < ApplicationController
     # body_without_quotes = request.POST.get('stripped-text', '')
     # recipient = request.POST.get('recipient')
     if user_nil(user_from_email)
-      user_from_email = User.create(email: user_from_email)
+      user_from_email = User.create!(email: user_from_email)
     end
 
     if topic_nil(topic_from_email)
-      topic_from_email = Topic.create(title: topic_from_email)
+      topic_from_email = Topic.create!(title: topic_from_email)
     end 
 
     create_a_bookmark(user_from_email, topic_from_email, bookmark_from_email)
@@ -34,6 +34,6 @@ class IncomingController < ApplicationController
   end 
 
   def create_a_bookmark(user_from_email, topic_from_email, bookmark_from_email)
-    User.find_by(email: user_from_email).topics.find_by(title: topic_from_email).bookmarks.create(url: bookmark_from_email)
+    User.find_by(email: user_from_email).topics.find_by(title: topic_from_email).bookmarks.create!(url: bookmark_from_email)
   end 
 end
