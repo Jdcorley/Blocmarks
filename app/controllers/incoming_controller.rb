@@ -7,9 +7,9 @@ class IncomingController < ApplicationController
      # to get a sense of what you're dealing with.
     puts "INCOMING PARAMS HERE: #{params}"
 
-    :email_user    = params[:sender]
-    :email_topic   = params[:subject]
-    :email_bookmark = params['body-plain']
+    :email_user    == params[:sender]
+    :email_topic   == params[:subject]
+    :email_bookmark == params['body-plain']
     # body_without_quotes = request.POST.get('stripped-text', '')
     # recipient = request.POST.get('recipient')
     if user_nil
