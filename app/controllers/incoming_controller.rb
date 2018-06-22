@@ -3,26 +3,32 @@ class IncomingController < ApplicationController
   skip_before_action :verify_authenticity_token, :authenticate_user!
 
   def create
-     # Take a look at these in your server logs
-     # to get a sense of what you're dealing with.
+
     puts "INCOMING PARAMS HERE: #{params}"
 
-    puts user_from_email    = params[:sender]
-    puts topic_from_email   = params[:subject]
-    puts bookmark_from_email = params['stripped-text']
-    # body_without_quotes = request.POST.get('stripped-text', '')
-    # recipient = request.POST.get('recipient')
+    user_from_email    = params[:sender]
+    topic_from_email   = params[:subject]
+    bookmark_from_email = params['stripped-text']
+    puts user_from_email, topic_from_email, bookmark_from_email 
+
     if user_nil(user_from_email)
-      puts user_from_email = User.create!(email: user_from_email)
+      User.create!(email: user_from_email)
+      user_from_email = User.last
+      puts user_from_email
     end
 
     if topic_nil(topic_from_email)
-     puts topic_from_email = Topic.create!(title: topic_from_email)
+      Topic.create!(title: topic_from_email)
+      topic_from_email = Topic.last
+      puts topic_from_email
     end 
 
-   puts create_a_bookmark(user_from_email, topic_from_email, bookmark_from_email)
+    puts user_from_email, topic_from_email, bookmark_from_email
+
+    create_a_bookmark(user_from_email, topic_from_email, bookmark_from_email)
     
     head 200
+    puts Bookmark.last 
   end
 
   def user_nil(user_from_email)
@@ -34,6 +40,6 @@ class IncomingController < ApplicationController
   end 
 
   def create_a_bookmark(user_from_email, topic_from_email, bookmark_from_email)
-    User.find_by(email: user_from_email).topics.find_by(title: topic_from_email).bookmarks.create!(url: bookmark_from_email.to_s)
+    User.find_by(email: user_from_email).topics.find_by(title: topic_from_email).bookmarks.create!(url: bookmark_from_email)
   end 
 end
