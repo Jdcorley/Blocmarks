@@ -13,14 +13,10 @@ class IncomingController < ApplicationController
     # recipient = request.POST.get('recipient')
     if user_nil
       email_user = User.create(email: sender)
-    else
-      break
     end
 
     if topic_nil
       email_topic = Topic.create(title: subject)
-    else 
-      break 
     end 
 
     create_a_bookmark(email_user, email_topic, email_bookmark)
