@@ -9,7 +9,7 @@ class IncomingController < ApplicationController
 
     email_user    = params[:sender]
     email_topic   = params[:subject]
-    email_bookmark = params[:body-plain]
+    email_bookmark = params[:'body-plain']
     # body_without_quotes = request.POST.get('stripped-text', '')
     # recipient = request.POST.get('recipient')
     if user_nil
