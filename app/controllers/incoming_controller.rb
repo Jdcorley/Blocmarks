@@ -14,11 +14,11 @@ class IncomingController < ApplicationController
       user_from_email = User.create!(email: user_from_email)
     end
 
-    current_user = user_from_email
+    current_user = User.find_by_email(user_from_email)
     puts current_user
 
     if topic_nil(topic_from_email)
-      topic_from_email = current_user.Topic.create!(title: topic_from_email)
+      topic_from_email = current_user.topics.create!(title: topic_from_email)
     end 
 
     puts topic_from_email
