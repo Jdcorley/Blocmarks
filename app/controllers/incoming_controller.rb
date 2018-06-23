@@ -40,6 +40,6 @@ class IncomingController < ApplicationController
   end 
 
   def create_a_bookmark( topic_from_email, bookmark_from_email)
-    Topic.find_by(title: topic_from_email).bookmarks.create!(url: bookmark_from_email)
+    current_topic.bookmarks.create!(url: bookmark_from_email)
   end 
 end
