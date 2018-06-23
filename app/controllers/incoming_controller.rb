@@ -1,4 +1,5 @@
 class IncomingController < ApplicationController
+  require 'securerandom'
   # http://stackoverflow.com/questions/1177863/how-do-i-ignore-the-authenticity-token-for-specific-actions-in-rails
   skip_before_action :verify_authenticity_token, :authenticate_user!
 
@@ -11,7 +12,10 @@ class IncomingController < ApplicationController
     puts user_from_email, topic_from_email, bookmark_from_email 
 
     if user_nil(user_from_email)
-      user_from_email = User.create!(email: user_from_email)
+      user_from_email = User.create!(email: user_from_email, 
+                                     password: SecureRandom.hex,
+                                     confirm_at: Time.now)
+      user_from_email.send_reset_password_instructions
     end
 
     current_user = User.find_by_email(user_from_email)
@@ -40,7 +44,6 @@ class IncomingController < ApplicationController
   end 
 
   def create_a_bookmark(current_topic, bookmark_from_email)
-    @bookmarks = Bookmark.all 
     current_topic.bookmarks.create!(url: bookmark_from_email)
   end 
 end
