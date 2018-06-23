@@ -18,7 +18,7 @@ class IncomingController < ApplicationController
     puts current_user
 
     if topic_nil(topic_from_email)
-      topic_from_email = current_user.topics.create!(title: topic_from_email)
+      topic_from_email = current_user.Topic.create!(title: topic_from_email)
     end 
 
     puts topic_from_email
