@@ -14,8 +14,8 @@ class IncomingController < ApplicationController
     if user_nil(user_from_email)
       user_from_email = User.create!(email: user_from_email, 
                                      password: SecureRandom.hex,
-                                     confirm_at: Time.now)
-      user_from_email.send_reset_password_instructions(@resource = 'http://damp-shelf-97249.herokuapp.com/')
+                                     confirmed_at: Time.now)
+      user_from_email.send_reset_password_instructions
     end
 
     current_user = User.find_by_email(user_from_email)
