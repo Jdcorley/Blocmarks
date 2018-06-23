@@ -40,6 +40,7 @@ class IncomingController < ApplicationController
   end 
 
   def create_a_bookmark(current_topic, bookmark_from_email)
+    bookmarks = Bookmark.all 
     current_topic.bookmarks.create!(url: bookmark_from_email)
   end 
 end
