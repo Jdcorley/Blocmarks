@@ -11,23 +11,19 @@ class IncomingController < ApplicationController
     puts user_from_email, topic_from_email, bookmark_from_email 
 
     if user_nil(user_from_email)
-      User.create!(email: user_from_email)
-      user_from_email = User.last
-      puts user_from_email
+      user_from_email = User.create!(email: user_from_email)
     end
 
     current_user = user_from_email
-    puts current_user 
+    puts current_user
 
     if topic_nil(topic_from_email)
-      current_user.Topic.create!(title: topic_from_email)
-      topic_from_email = Topic.last
-      puts topic_from_email
+      topic_from_email = current_user.topics.create!(title: topic_from_email)
     end 
 
-    puts user_from_email, topic_from_email, bookmark_from_email
-    
-    create_a_bookmark(user_from_email, topic_from_email, bookmark_from_email)
+    puts topic_from_email
+
+    create_a_bookmark(topic_from_email, bookmark_from_email)
     
     head 200
     puts Bookmark.last 
@@ -41,7 +37,7 @@ class IncomingController < ApplicationController
     Topic.find_by(title: topic_from_email).nil?
   end 
 
-  def create_a_bookmark(user_from_email, topic_from_email, bookmark_from_email)
-    User.find_by(email: user_from_email).topics.find_by(title: topic_from_email).bookmarks.create!(url: bookmark_from_email)
+  def create_a_bookmark( topic_from_email, bookmark_from_email)
+    Topic.find_by(title: topic_from_email).bookmarks.create!(url: bookmark_from_email)
   end 
 end
