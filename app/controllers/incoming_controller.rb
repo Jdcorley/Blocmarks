@@ -21,9 +21,11 @@ class IncomingController < ApplicationController
       topic_from_email = current_user.topics.create!(title: topic_from_email)
     end 
 
+    current_topic = Topic.find_by(title: topic_from_email)
+    puts current_topic
     puts topic_from_email
 
-    create_a_bookmark(topic_from_email, bookmark_from_email)
+    create_a_bookmark(current_topic, bookmark_from_email)
     
     head 200
     puts Bookmark.last 
