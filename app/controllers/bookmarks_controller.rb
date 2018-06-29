@@ -1,7 +1,7 @@
 class BookmarksController < ApplicationController
 
   def index 
-    @bookmarks = Bookmark.all 
+    @bookmarks = Bookmarks.all 
   end 
   
   def show
@@ -16,6 +16,7 @@ class BookmarksController < ApplicationController
   def create
     @topic = Topic.find(params[:topic_id])
     @bookmark = @topic.bookmarks.new(bookmark_params) 
+    @bookmark.user = current_user 
 
     if @bookmark.save 
       flash[:notice] = 'Bookmark was saved.'
@@ -24,16 +25,17 @@ class BookmarksController < ApplicationController
       Rails.logger.info @bookmark.errors.full_messages
       flash.now[:alert] = 'There was an error saving this bookmark. Please check that the url you entered is valid.'
       render :new 
-    end 
+    end
   end 
 
   def edit
     @bookmark = Bookmark.find(params[:id])
   end 
 
-  def update 
+  def update
     @bookmark = Bookmark.find(params[:id])
     @bookmark.assign_attributes(bookmark_params)
+    authorize @bookmark
 
     if @bookmark.save 
       flash[:notice] = 'Bookmark was updated.'
@@ -45,16 +47,18 @@ class BookmarksController < ApplicationController
   end 
 
   def destroy 
-    @topic = Topic.find(params[:topic_id])
     @bookmark = Bookmark.find(params[:id])
+    @topic = @bookmark.topic 
+    authorize @bookmark
 
     if @bookmark.destroy 
       flash[:notice] = 'Bookmark deleted successfully.'
-      redirect_to @topic 
+      redirect_to @topic  
     else 
       flash.now[:alert] = 'There was an error deleted this bookmark.'
       render :show 
     end 
+    puts 'you destroyed a bookmark'
   end 
 
   private 

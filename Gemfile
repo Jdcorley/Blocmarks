@@ -12,7 +12,8 @@ gem 'rails', '~> 5.2.0'
    gem 'sqlite3', '~> 1.3.13'
    gem 'web-console'
  end
-
+ 
+ gem 'pundit'
  gem 'faker'
  gem 'devise'
  gem 'haml' 

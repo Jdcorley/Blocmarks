@@ -31,6 +31,7 @@ class TopicsController < ApplicationController
   def update 
     @topic = Topic.find(params[:id])
     @topic.assign_attributes(topic_params)
+    authorize @topic 
 
     if @topic.save 
       flash[:notice] = 'Topic was updated.'
@@ -43,7 +44,7 @@ class TopicsController < ApplicationController
 
   def destroy
     @topic = Topic.find(params[:id])
-
+    authorize @topic 
     if @topic.destroy 
       flash[:notice] = 'Topic deleted successfully.'
       redirect_to topics_path

@@ -1,0 +1,11 @@
+.container
+  .row
+   - @bookmarks.each do |bookmark|
+    .col-sm-3
+     = render partial: 'bookmark', locals: { bookmark: bookmark }
+ %br
+ .row
+  .col-md-4
+   \#{link_to "New Bookmark", new_bookmark_path, class: 'btn btn-success'}
+ 
+ = yield 

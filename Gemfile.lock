@@ -44,7 +44,7 @@ GEM
       tzinfo (~> 1.1)
     arel (9.0.0)
     ast (2.4.0)
-    autoprefixer-rails (8.6.3)
+    autoprefixer-rails (8.6.4)
       execjs
     bcrypt (3.1.12)
     bindex (0.5.0)
@@ -141,6 +141,8 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     puma (3.11.4)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.5)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
@@ -292,6 +294,7 @@ DEPENDENCIES
   pg
   pry-rails
   puma
+  pundit
   rails (~> 5.2.0)
   rails-controller-testing
   rails-erd

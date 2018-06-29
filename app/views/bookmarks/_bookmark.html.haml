@@ -1,5 +1,5 @@
 %button.btn.btn-link{"aria-label" => "Left Align", type: "button"}
   %span= link_to '', edit_bookmark_path(bookmark), class: 'glyphicon glyphicon-pencil', 'aria-hidden': "true"
 %button.btn.btn-link{"aria-label" => "Left Align", type: "button"}
-  %span= link_to '', @bookmark, method: :delete,  class: 'glyphicon glyphicon-remove', 'aria-hidden': "true", data: {confirm: 'Are you sure you would like to delete this bookmark?'}
+  %span= link_to '', bookmark_path(bookmark), method: :delete, class: 'glyphicon glyphicon-remove', 'aria-hidden': "true", data: {confirm: 'Are you sure you would like to delete this bookmark?'}
 %a{ href: bookmark.url, target: '_blank', class: 'btn btn-link' }=bookmark.url

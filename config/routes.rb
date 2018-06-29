@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   get 'incoming/create'
   devise_for :users, controllers: {sessions: 'users/sessions'}
   devise_scope :user do 
