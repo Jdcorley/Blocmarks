@@ -44,7 +44,9 @@ class IncomingController < ApplicationController
 
   def create_a_bookmark(this_topic, bookmark_from_email)
     this_topic.bookmarks.create!(url: bookmark_from_email, user: current_user )
+    if current_user == User.last 
+      current_user.send_reset_password_instructions
+    end 
   end 
 
-  current_user.send_reset_password_instructions if current_user == User.last 
 end 
