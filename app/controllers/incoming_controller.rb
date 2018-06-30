@@ -12,9 +12,9 @@ class IncomingController < ApplicationController
     puts user_from_email, topic_from_email, bookmark_from_email
     # user_nil? if so create new user and send password reset
     if user_nil?(user_from_email)
-      User.create!(email: user_from_email, 
-                    password: SecureRandom.hex,
-                    confirmed_at: Time.now)
+      user_from_email = User.create!(email: user_from_email, 
+                                     password: SecureRandom.hex,
+                                     confirmed_at: Time.now)
       user_from_email.send_reset_password_instructions
     end
     # set current_user to user from the email
