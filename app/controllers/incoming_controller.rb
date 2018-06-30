@@ -44,6 +44,6 @@ class IncomingController < ApplicationController
   end 
 
   def create_a_bookmark(this_user, this_topic, bookmark_from_email)
-    this_topic.bookmarks.create!(url: bookmark_from_email, user: this_user )
+    this_topic.Bookmark.create!(url: bookmark_from_email, user: this_user )
   end 
 end
