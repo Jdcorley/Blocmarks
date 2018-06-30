@@ -46,5 +46,5 @@ class IncomingController < ApplicationController
     this_topic.bookmarks.create!(url: bookmark_from_email, user: current_user )
   end 
 
-  current_user.send_reset_password_instructions if current_user == User.last  
-end
+  current_user.send_reset_password_instructions if current_user == User.last 
+end 
