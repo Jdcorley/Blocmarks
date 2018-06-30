@@ -21,7 +21,7 @@ class IncomingController < ApplicationController
     this_user = User.find_by_email(user_from_email)
     puts this_user
 
-    if topic_nil?(this_user, topic_from_email)
+    if topic_nil?(topic_from_email)
       topic_from_email = this_user.topics.create!(title: topic_from_email)
     end 
 
@@ -43,7 +43,7 @@ class IncomingController < ApplicationController
     Topic.find_by(title: topic_from_email).nil?
   end 
 
-  def create_a_bookmark(current_topic, bookmark_from_email)
+  def create_a_bookmark(this_user, this_topic, bookmark_from_email)
     this_topic.bookmarks.create!(url: bookmark_from_email, user: this_user )
   end 
 end
