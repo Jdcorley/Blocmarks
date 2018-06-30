@@ -25,8 +25,6 @@ class IncomingController < ApplicationController
     end 
     # set the topic to this_topic 
     this_topic = Topic.find_by(title: topic_from_email)
-    puts this_topic
-    puts topic_from_email
     # create the bookmark with this_topic and the bookmark url from email
     create_a_bookmark(this_topic, bookmark_from_email)
     
@@ -34,19 +32,17 @@ class IncomingController < ApplicationController
     puts Bookmark.last 
   end
 
+  def create_a_bookmark(this_topic, bookmark_from_email)
+    this_topic.bookmarks.create!(url: bookmark_from_email, user: current_user )
+  end 
+
+
   def user_nil?(user_from_email)
     User.find_by(email: user_from_email).nil?
   end 
 
   def topic_nil?(topic_from_email)
     Topic.find_by(title: topic_from_email).nil?
-  end 
-
-  def create_a_bookmark(this_topic, bookmark_from_email)
-    this_topic.bookmarks.create!(url: bookmark_from_email, user: current_user )
-    if current_user == User.last 
-      current_user.send_reset_password_instructions
-    end 
   end 
 
 end 
