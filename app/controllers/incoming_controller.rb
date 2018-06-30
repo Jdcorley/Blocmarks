@@ -21,8 +21,8 @@ class IncomingController < ApplicationController
     this_user = User.find_by_email(user_from_email)
     puts this_user
 
-    if topic_nil?(topic_from_email)
-      topic_from_email = this_user.topics.create!(title: topic_from_email)
+    if topic_nil?(this_user, topic_from_email)
+      topic_from_email = this_user.Topic.create!(title: topic_from_email)
     end 
 
     this_topic = Topic.find_by(title: topic_from_email)
@@ -39,7 +39,7 @@ class IncomingController < ApplicationController
     User.find_by(email: user_from_email).nil?
   end 
 
-  def topic_nil?(topic_from_email)
+  def topic_nil?(this_user, topic_from_email)
     Topic.find_by(title: topic_from_email).nil?
   end 
 
