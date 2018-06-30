@@ -15,7 +15,7 @@ class IncomingController < ApplicationController
       user_from_email = User.create!(email: user_from_email, 
                                      password: SecureRandom.hex,
                                      confirmed_at: Time.now)
-      user_from_email.send_reset_password_instructions
+      user_from_email.send_reset_password_instructions.delay_for(1.minute)
     end
     # set current_user to user from the email
     current_user = User.find_by_email(user_from_email)
