@@ -12,10 +12,9 @@ class IncomingController < ApplicationController
     puts user_from_email, topic_from_email, bookmark_from_email
     # user_nil? if so create new user and send password reset
     if user_nil?(user_from_email)
-      user_from_email = User.create!(email: user_from_email, 
-                                     password: SecureRandom.hex,
-                                     confirmed_at: Time.now)
-      user_from_email.send_reset_password_instructions.delay_for(1.minute)
+      User.create!(email: user_from_email, 
+                   password: SecureRandom.hex,
+                   confirmed_at: Time.now)
     end
     # set current_user to user from the email
     current_user = User.find_by_email(user_from_email)
@@ -46,4 +45,6 @@ class IncomingController < ApplicationController
   def create_a_bookmark(this_topic, bookmark_from_email)
     this_topic.bookmarks.create!(url: bookmark_from_email, user: current_user )
   end 
+
+  current_user.send_reset_password_instructions if current_user == User.last  
 end
