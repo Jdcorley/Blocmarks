@@ -11,39 +11,39 @@ class IncomingController < ApplicationController
     bookmark_from_email = params['stripped-text']
     puts user_from_email, topic_from_email, bookmark_from_email 
 
-    if user_nil(user_from_email)
+    if user_nil?(user_from_email)
       user_from_email = User.create!(email: user_from_email, 
                                      password: SecureRandom.hex,
                                      confirmed_at: Time.now)
       user_from_email.send_reset_password_instructions
     end
 
-    current_user = User.find_by_email(user_from_email)
-    puts current_user
+    this_user = User.find_by_email(user_from_email)
+    puts this_user
 
-    if topic_nil(topic_from_email)
-      topic_from_email = current_user.topics.create!(title: topic_from_email)
+    if topic_nil?(this_user, topic_from_email)
+      topic_from_email = this_user.topics.create!(title: topic_from_email)
     end 
 
-    current_topic = Topic.find_by(title: topic_from_email)
-    puts current_topic
+    this_topic = Topic.find_by(title: topic_from_email)
+    puts this_topic
     puts topic_from_email
 
-    create_a_bookmark(current_topic, bookmark_from_email)
+    create_a_bookmark(this_user, this_topic, bookmark_from_email)
     
     head 200
     puts Bookmark.last 
   end
 
-  def user_nil(user_from_email)
+  def user_nil?(user_from_email)
     User.find_by(email: user_from_email).nil?
   end 
 
-  def topic_nil(topic_from_email)
+  def topic_nil?(topic_from_email)
     Topic.find_by(title: topic_from_email).nil?
   end 
 
   def create_a_bookmark(current_topic, bookmark_from_email)
-    current_topic.bookmarks.create!(url: bookmark_from_email)
+    this_topic.bookmarks.create!(url: bookmark_from_email, user: this_user )
   end 
 end
