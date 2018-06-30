@@ -27,6 +27,7 @@ class IncomingController < ApplicationController
     this_topic = Topic.find_by(title: topic_from_email)
     # create the bookmark with this_topic and the bookmark url from email
     this_topic.bookmarks.create!(url: bookmark_from_email, user: current_user )
+    send_password_reset?(current_user)
     
     head 200
   end
@@ -39,4 +40,11 @@ class IncomingController < ApplicationController
     Topic.find_by(title: topic_from_email).nil?
   end 
 
+  def send_password_reset?(current_user)
+    puts "Current user is #{current_user}"
+    puts "#{User.last} is the last user."
+    if current_user == User.last
+      current_user.send_reset_password_instructions
+    end 
+  end
 end 
