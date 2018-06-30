@@ -22,7 +22,7 @@ class IncomingController < ApplicationController
     puts current_user
     # topic_nil? if so create new topic with topic parsed from email
     if topic_nil?(topic_from_email)
-      topic_from_email = current_user.Topic.create!(title: topic_from_email)
+      current_user.topics.create!(title: topic_from_email)
     end 
     # set the topic to this_topic 
     this_topic = Topic.find_by(title: topic_from_email)
