@@ -22,7 +22,7 @@ class IncomingController < ApplicationController
     puts this_user
 
     if topic_nil?(this_user, topic_from_email)
-      topic_from_email = this_user.Topic.create!(title: topic_from_email)
+      topic_from_email = this_user.topics.create!(title: topic_from_email)
     end 
 
     this_topic = Topic.find_by(title: topic_from_email)
