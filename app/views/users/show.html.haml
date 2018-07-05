@@ -1,0 +1,18 @@
+.container 
+  .row
+    %h1= 'My Bookmarks' 
+  %br 
+  .row 
+  - @user_bookmarks.each do |bookmark|  
+    .col-sm-3 
+      = render partial: 'bookmarks/bookmark', locals: { bookmark: bookmark  }
+  %br 
+  %br 
+.container 
+  .row 
+    %h1= 'My Liked Bookmarks'
+  %br
+  .row 
+  - @liked_bookmarks.each do |bookmark|
+    .col-sm-3 
+      = render partial: 'bookmarks/bookmark', locals: { bookmark: bookmark }

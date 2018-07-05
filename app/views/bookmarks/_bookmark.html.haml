@@ -4,4 +4,5 @@
   %button.btn.btn-link{"aria-label" => "Left Align", type: "button"}
     %span= link_to '', bookmark_path(bookmark), method: :delete, class: 'glyphicon glyphicon-remove', 'aria-hidden': "true", data: {confirm: 'Are you sure you would like to delete this bookmark?'}
 %a{ href: bookmark.url, target: '_blank', class: 'btn btn-link' }=bookmark.url
-%span= render( partial: 'likes/like', locals: { bookmark: bookmark } )
+-if !policy(bookmark).update?
+  %span= render( partial: 'likes/like', locals: { bookmark: bookmark } )
