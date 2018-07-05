@@ -1,1 +1,3 @@
-%a{ href: @bookmark.url, target: '_blank', class: 'btn btn-link' }=bookmark.url
+%div 
+%h1= link_to @topic.title, @topic
+%h2= render( partial: 'bookmarks/bookmark', locals: {bookmark: @bookmark} )

@@ -1,5 +1,5 @@
 class TopicPolicy < ApplicationPolicy 
-    def edit?
+  def edit?
     user.id == record.user_id
   end 
 

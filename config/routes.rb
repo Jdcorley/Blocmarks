@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'likes/create'
+  get 'likes/destroy'
   get 'incoming/create'
   devise_for :users, controllers: {sessions: 'users/sessions'}
   devise_scope :user do 
@@ -6,7 +8,9 @@ Rails.application.routes.draw do
   end
 
   resources :topics, shallow: true  do 
-    resources :bookmarks
+    resources :bookmarks, except: [:index] do 
+      resources :likes, only: [:index, :create, :destroy]
+    end 
   end 
 
   post :incoming, to: 'incoming#create'
